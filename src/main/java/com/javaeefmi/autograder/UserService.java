@@ -27,9 +27,9 @@ public class UserService {
     
     public UserService()
     {
-      m_UsersDb.add(new User(1, User.Role.User, "alpha", "5ebe2294ecd0e0f08eab7690d2a6ee69")); //password "secret"
-      m_UsersDb.add(new User(2, User.Role.User, "beta", "5ebe2294ecd0e0f08eab7690d2a6ee69"));//password "secret"
-      m_UsersDb.add(new User(3, User.Role.User, "gamma", "5ebe2294ecd0e0f08eab7690d2a6ee69"));//password "secret"
+      m_UsersDb.add(new User( "alpha", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString())); //password "secret"
+      m_UsersDb.add(new User("beta", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString()));//password "secret"
+      m_UsersDb.add(new User("gamma", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString()));//password "secret"
     }
     
     
@@ -38,7 +38,7 @@ public class UserService {
     public String loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd)
     {
         
-      User newUser = new User(1, User.Role.SysOp,name,passwd);
+      User newUser = new User(name,passwd,Roles.User.toString());
       
       return newUser.toString();
     }
@@ -49,7 +49,7 @@ public class UserService {
     public String createNewUser(@FormParam("name") String name, @FormParam("passwd") String passwd)
     {
         
-      User newUser = new User(1, User.Role.SysOp,name,passwd);
+      User newUser = new User(name,passwd,Roles.User.toString());
       
       return newUser.toString();
     }
@@ -75,7 +75,7 @@ public class UserService {
             if(id == m_UsersDb.get(i).getId())
             {
                 user.put("username", m_UsersDb.get(i).getUsername());
-                user.put("roleId",m_UsersDb.get(i).getRoleId());
+                user.put("roleId",m_UsersDb.get(i).getRole());
                 user.put("Id",m_UsersDb.get(i).getId());
                 
                 //jsonResult = m_UsersDb.get(i).toString();

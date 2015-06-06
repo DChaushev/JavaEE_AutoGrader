@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -26,8 +28,13 @@ import javax.validation.constraints.Size;
  * @author vankata
  */
 @Entity
-@Table(name = "Users")
-public class User implements Serializable {
+@Table(name = "Tasks")
+@NamedQueries({
+    @NamedQuery(name = "Tasks.findAll", query = "SELECT t FROM Tasks t"),
+    @NamedQuery(name = "Tasks.findById", query = "SELECT t FROM Tasks t WHERE t.id = :id"),
+    @NamedQuery(name = "Tasks.findByTaskName", query = "SELECT t FROM Tasks t WHERE t.taskName = :taskName"),
+    @NamedQuery(name = "Tasks.findByTaskFile", query = "SELECT t FROM Tasks t WHERE t.taskFile = :taskFile")})
+public class Tasks implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,64 +43,65 @@ public class User implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "username")
-    private String username;
+    @Size(min = 1, max = 255)
+    @Column(name = "task_name")
+    private String taskName;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 128)
-    @Column(name = "password")
-    private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "role")
-    private String role;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @Size(min = 1, max = 100)
+    @Column(name = "task_file")
+    private String taskFile;
+    @JoinColumn(name = "test_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Test testId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
     private Collection<Results> resultsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
+    private Collection<Test> testCollection;
 
-    public User() {
+    public Tasks() {
     }
 
-    public User(Integer id) {
+    public Tasks(Integer id) {
         this.id = id;
     }
 
-    public User( String username, String password, String role) {
-        
-        this.username = username;
-        this.password = password;
-        this.role = role;
+    public Tasks(Integer id, String taskName, String taskFile) {
+        this.id = id;
+        this.taskName = taskName;
+        this.taskFile = taskFile;
     }
 
     public Integer getId() {
         return id;
     }
 
-    
-
-    public String getUsername() {
-        return username;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getTaskName() {
+        return taskName;
     }
 
-    public String getPassword() {
-        return password;
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getTaskFile() {
+        return taskFile;
     }
 
-    public String getRole() {
-        return role;
+    public void setTaskFile(String taskFile) {
+        this.taskFile = taskFile;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public Test getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Test testId) {
+        this.testId = testId;
     }
 
     public Collection<Results> getResultsCollection() {
@@ -102,6 +110,14 @@ public class User implements Serializable {
 
     public void setResultsCollection(Collection<Results> resultsCollection) {
         this.resultsCollection = resultsCollection;
+    }
+
+    public Collection<Test> getTestCollection() {
+        return testCollection;
+    }
+
+    public void setTestCollection(Collection<Test> testCollection) {
+        this.testCollection = testCollection;
     }
 
     @Override
@@ -114,10 +130,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Tasks)) {
             return false;
         }
-        User other = (User) object;
+        Tasks other = (Tasks) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -126,7 +142,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.javaeefmi.autograder.Users[ id=" + id + " ]";
+        return "com.javaeefmi.autograder.Tasks[ id=" + id + " ]";
     }
     
 }
