@@ -18,7 +18,7 @@ $(document).ready(function() {
 
                     Cookies.set('AutoGraderUser', username, { expires: 7 });
                     // Use anything defined in the loaded script...
-                    
+
                     window.location.href='./';
                   });
                   
