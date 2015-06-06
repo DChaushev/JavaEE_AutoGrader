@@ -8,6 +8,12 @@ $(document).ready(function() {
         
         var validationStatus = 1;
         
+        if(username === "" || passwd === "")
+        {
+            alert("Empty fields!");
+            validationStatus = 0;
+        }
+        
         if(Boolean(validationStatus))
         {
           

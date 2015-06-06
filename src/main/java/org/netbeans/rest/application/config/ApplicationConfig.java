@@ -30,6 +30,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.javaeefmi.autograder.AutoGraderService.class);
+        resources.add(com.javaeefmi.autograder.ContestService.class);
         resources.add(com.javaeefmi.autograder.UserService.class);
     }
     
