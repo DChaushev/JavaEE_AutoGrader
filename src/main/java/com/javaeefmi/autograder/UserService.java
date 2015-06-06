@@ -40,6 +40,12 @@ public class UserService {
         
       User newUser = new User(1, User.Role.SysOp,name,passwd);
       
+      /*
+      {
+        "srvResponce": "ok;nok;"
+      }
+      */
+      
       return newUser.toString();
     }
       
@@ -51,6 +57,11 @@ public class UserService {
         
       User newUser = new User(1, User.Role.SysOp,name,passwd);
       
+      /*
+      {
+        "srvResponce": "ok;nok;"
+      }
+      */
       return newUser.toString();
     }
 
@@ -69,6 +80,32 @@ public class UserService {
     @Path("info/{id}")
     public String info(@PathParam("id") int id)
     {
+        
+        /*
+        {
+            "user_id" = 1,
+            "username" = "tautochrone",
+            "challenges_submited":
+            [
+                challenge:
+                {
+                    "chg_id" : "challenge id",
+                    "name":"challenge name",
+                    "scores": "# of pts"
+                 },
+                 challenge:
+                {
+                    "chg_id" : "challenge id",
+                    "name":"challenge name",
+                    "scores": "# of pts"
+                 }
+                 ...
+            ]
+        
+        }   
+        */
+        
+        
         JSONObject user = new JSONObject();
         
         for (int i = 0; i < m_UsersDb.size(); i++) {
