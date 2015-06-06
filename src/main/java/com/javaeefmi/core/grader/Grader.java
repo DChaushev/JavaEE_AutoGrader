@@ -48,7 +48,8 @@ public class Grader {
             }
         }
 
-//        TemporaryFileManager.deleteFile(fileName);
+        TemporaryFileManager.deleteFile(fileName + ".cpp");
+        TemporaryFileManager.deleteFile(fileName + ".exe");
         return result.toString();
     }
 

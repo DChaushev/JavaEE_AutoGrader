@@ -25,7 +25,7 @@ public class TemporaryFileManager {
 
         String fileName = String.format("%d%d", System.currentTimeMillis(), new Random().nextInt());
 
-        try (PrintWriter writer = new PrintWriter("temp/" + fileName + ".cpp", "UTF-8")) {
+        try (PrintWriter writer = new PrintWriter(fileName + ".cpp", "UTF-8")) {
 
             writer.println(source);
 
@@ -36,15 +36,10 @@ public class TemporaryFileManager {
         return fileName;
     }
 
-    static void deleteFile(String fileName) {
-        File cpp = new File(fileName + ".cpp");
-        File exe = new File(fileName + ".exe");
-
-        if (cpp.exists()) {
-            cpp.delete();
-        }
-        if (exe.exists()) {
-            exe.delete();
+    public static void deleteFile(String fileName) {
+        File file = new File(fileName);
+        if (file.exists()) {
+            file.delete();
         }
     }
 
