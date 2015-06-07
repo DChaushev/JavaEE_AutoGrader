@@ -736,21 +736,21 @@ figure {
 	color: #703b87;
 }
 
-.btn-5b:hover span {
+/*.btn-5b:hover span {
 	-webkit-transform: translateX(200%);
 	-moz-transform: translateX(200%);
 	-ms-transform: translateX(200%);
 	transform: translateX(200%);
-}
+}*/
 
 .btn-5b:before {
 	left: -100%;
 	top: 0;
 }
 
-.btn-5b:hover:before {
+/*.btn-5b:hover:before {
 	left: 0;
-}
+}*/
 
 /**
  * 11.0 - Media Query

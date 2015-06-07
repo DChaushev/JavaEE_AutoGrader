@@ -1,113 +1,113 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>AutoGrader</title>
-	    <!-- meta -->
-	    <meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <title>AutoGrader</title>
+        <!-- meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	    <!-- css -->
-	    <link rel="stylesheet" href="./css/bootstrap.min.css">
-	    <link rel="stylesheet" href="./css/ionicons.min.css">
-	    <link rel="stylesheet" href="./css/pace.css">
-	    <link rel="stylesheet" href="./css/custom.css">
+        <!-- css -->
+        <link rel="stylesheet" href="./css/bootstrap.min.css">
+        <link rel="stylesheet" href="./css/ionicons.min.css">
+        <link rel="stylesheet" href="./css/pace.css">
+        <link rel="stylesheet" href="./css/custom.css">
 
-	    <!-- js -->
-	    <script src="./js/jquery-2.1.3.min.js"></script>
-	    <script src="./js/js-cookie.js"></script>
-            <script src="./js/bootstrap.min.js"></script>
-	    <script src="./js/pace.min.js"></script>
-	    <script src="./js/modernizr.custom.js"></script>
+        <!-- js -->
+        <script src="./js/jquery-2.1.3.min.js"></script>
+        <script src="./js/js-cookie.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/pace.min.js"></script>
+        <script src="./js/modernizr.custom.js"></script>
         <script type="text/javascript">
-           $(document).ready(function() {
-               if(Cookies.get('AutoGraderUser') === undefined)
-               {
-                  $("#signup").show();
-                  $("#login").show();
-               }
-               else
-               {
-                 $("#userprofile").show();
-                 $("#logout").show();
-  
-                 $("#logout").click(function() {
-                    Cookies.remove('AutoGraderUser');
-                    window.location.href='./';
-                 });
-               }
+            $(document).ready(function () {
+                if (Cookies.get('AutoGraderUser') === undefined)
+                {
+                    $("#signup").show();
+                    $("#login").show();
+                }
+                else
+                {
+                    $("#userprofile").show();
+                    $("#logout").show();
+
+                    $("#logout").click(function () {
+                        Cookies.remove('AutoGraderUser');
+                        window.location.href = './';
+                    });
+                }
             });
         </script>
-            
-	</head>
 
-	<body>
-		<div class="container">	
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="index.html"><b>Auto</b>Grader</a></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-  								<button type="button" id="trigger-overlay" class="navbar-toggle">
-    								<span class="ion-navicon"></span>
-  								</button>
-							</div>
+    </head>
 
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  								<ul class="nav navbar-nav navbar-right">
-    								<li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="contests.html" data-hover="Contest">Contests</a></li>
-    								<li class="cl-effect-11" id="signup" style="display: none"><a href="signup.html" data-hover="Signup">Signup</a></li>
-    								<li class="cl-effect-11" id="userprofile" style="display: none"><a href="me.html" >My Profile</a></li>
-    								
-                                                                <li class="cl-effect-11" id="login" style="display: none"><a href="login.html" data-hover="Login">Login</a></li>
-  								<li class="cl-effect-11" id="logout" style="display: none"><a href="#" data-hover="Logout">Logout</a></li>
-  								
-                                                                </ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-			
-					</div><!-- col-md-8 -->
-				</div>
-			</header>
-		</div>
-		<div class="content-body">
-			<div class="container">
-				<div class="row">
-					<main class="col-md-12">
-						<article class="post post-1">
-							<header class="entry-header">
-								<h1 class="entry-title">
-									What is AutoGrader?
-								</h1>
-							</header>
-							<div class="entry-content clearfix">
-								<p>Someone with strong expression in poetical writing to put something here, till then ... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-								<div class="read-more cl-effect-14">
-									<a href="contests.html" class="more-link">Browse the challenges <span class="meta-nav">→</span></a>
-								</div>
-							</div>
-						</article>
+    <body>
+        <div class="container">	
+            <header id="site-header">
+                <div class="row">
+                    <div class="col-md-4 col-sm-5 col-xs-8">
+                        <div class="logo">
+                            <h1><a href="index.html"><b>Auto</b>Grader</a></h1>
+                        </div>
+                    </div><!-- col-md-4 -->
+                    <div class="col-md-8 col-sm-7 col-xs-4">
+                        <nav class="main-nav" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                    <span class="ion-navicon"></span>
+                                </button>
+                            </div>
 
-		
-					</main>
-				</div>
-			</div>
-		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy; AutoGrader-FMI</p>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<script src="./js/script.js"></script>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
+                                    <li class="cl-effect-11"><a href="tasks.html" data-hover="Tasks">Tasks</a></li>
+                                    <li class="cl-effect-11" id="signup" style="display: none"><a href="signup.html" data-hover="Signup">Signup</a></li>
+                                    <li class="cl-effect-11" id="userprofile" style="display: none"><a href="me.html" >My Profile</a></li>
 
-	</body>
+                                    <li class="cl-effect-11" id="login" style="display: none"><a href="login.html" data-hover="Login">Login</a></li>
+                                    <li class="cl-effect-11" id="logout" style="display: none"><a href="#" data-hover="Logout">Logout</a></li>
+
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </nav>
+
+                    </div><!-- col-md-8 -->
+                </div>
+            </header>
+        </div>
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    <main class="col-md-12">
+                        <article class="post post-1">
+                            <header class="entry-header">
+                                <h1 class="entry-title">
+                                    What is AutoGrader?
+                                </h1>
+                            </header>
+                            <div class="entry-content clearfix">
+                                <p>Someone with strong expression in poetical writing to put something here, till then ... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                                <div class="read-more cl-effect-14">
+                                    <a href="tasks.html" class="more-link">Browse the challenges <span class="meta-nav">→</span></a>
+                                </div>
+                            </div>
+                        </article>
+
+
+                    </main>
+                </div>
+            </div>
+        </div>
+        <footer id="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="copyright">&copy; AutoGrader-FMI</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="./js/script.js"></script>
+
+    </body>
 </html>
