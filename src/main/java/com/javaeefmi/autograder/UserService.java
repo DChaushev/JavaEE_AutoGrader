@@ -4,6 +4,11 @@ package com.javaeefmi.autograder;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -23,10 +28,18 @@ public class UserService {
     
    // @Context private HttpServletRequest m_Request;
     
-    private ArrayList<User> m_UsersDb = new ArrayList<User>();
+    private List<User> m_UsersDb = new ArrayList<User>();
+    private EntityManager em;
     
     public UserService()
     {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.javaeefmi_AutoGrader_war_1.0-SNAPSHOTPU");
+        em = emf.createEntityManager();
+        
+        
+        TypedQuery<User> query = em.createNamedQuery("User.findAll", User.class);
+      m_UsersDb = query.getResultList();
+      System.out.println("First user's name is "+m_UsersDb.get(0).getUsername());
       m_UsersDb.add(new User( "alpha", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString())); //password "secret"
       m_UsersDb.add(new User("beta", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString()));//password "secret"
       m_UsersDb.add(new User("gamma", "5ebe2294ecd0e0f08eab7690d2a6ee69",Roles.User.toString()));//password "secret"
@@ -37,7 +50,19 @@ public class UserService {
     @Path("login")
     public String loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd)
     {
-        
+      TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
+      try{
+      User user = query.setParameter("name", name).getSingleResult();
+      System.out.println(user.getPassword());
+      if (passwd == user.getPassword()){
+          //we go ahead with login
+      } else {
+          // we give the user a red error
+      }
+      } catch (javax.persistence.NoResultException e){
+          //no such user at all, should we tell???
+      }
+      
       User newUser = new User(name,passwd,Roles.User.toString());
       
       /*
@@ -56,6 +81,15 @@ public class UserService {
     {
         
       User newUser = new User(name,passwd,Roles.User.toString());
+      if (em != null){
+          em.getTransaction().begin();
+          em.persist(newUser);
+          em.flush();
+          System.out.println("User "+newUser.getUsername()+" persisted!");
+          em.getTransaction().commit();
+      } else {
+          System.out.println("em is null");
+      }
       
       /*
       {
@@ -69,7 +103,8 @@ public class UserService {
     @GET
     @Path("me")
     public String me() throws NoSuchAlgorithmException, UnsupportedEncodingException 
-    {
+    {   
+        
         
         return UserSecurity.MD5("123");
         /* Session rquired */
