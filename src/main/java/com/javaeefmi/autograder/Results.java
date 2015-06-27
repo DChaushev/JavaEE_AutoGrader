@@ -33,26 +33,33 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Results.findByScore", query = "SELECT r FROM Results r WHERE r.score = :score"),
     @NamedQuery(name = "Results.findByStatus", query = "SELECT r FROM Results r WHERE r.status = :status")})
 public class Results implements Serializable {
+
     @Lob
     @Size(max = 65535)
     @Column(name = "source")
     private String source;
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "score")
     private int score;
+
     @Size(max = 256)
     @Column(name = "status")
     private String status;
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private User userId;
+
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tasks taskId;
@@ -123,10 +130,7 @@ public class Results implements Serializable {
             return false;
         }
         Results other = (Results) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
@@ -141,5 +145,5 @@ public class Results implements Serializable {
     public void setSource(String source) {
         this.source = source;
     }
-    
+
 }

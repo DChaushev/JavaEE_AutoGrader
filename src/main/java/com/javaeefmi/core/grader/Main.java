@@ -156,7 +156,6 @@ public class Main {
 //        Grader g = new Grader(source, inputs, outputs);
 //        System.out.println(g.runTests());
 //    }
-
 //    public static void main(String[] args) {
 //
 //        String TASK_NAME = "rational";

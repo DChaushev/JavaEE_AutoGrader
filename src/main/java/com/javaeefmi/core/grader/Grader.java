@@ -35,7 +35,7 @@ public class Grader {
             for (int i = 0; i < inputFiles.size(); i++) {
                 List<String> command = Arrays.asList(fileName + ".exe");
                 ErrorMessage em;
-                
+
                 String input = reader.getContent(inputFiles.get(i));
                 String output = reader.getContent(outputFiles.get(i));
 

@@ -1,6 +1,5 @@
 package com.javaeefmi.core.grader;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +49,7 @@ public class ThreadedStreamHandler extends Thread {
 
             String line;
             while ((line = buffReader.readLine()) != null) {
-                outputBuilder.append(line + "\n");
+                outputBuilder.append(line).append("\n");
             }
 
         } catch (IOException ex) {
