@@ -63,7 +63,7 @@ public class UserService {
         try{
             User user = query.setParameter("name", name).getSingleResult();
             if(user != null){
-                return String.format("Username already taken 4yli we!!");
+                return String.format("Username already taken!!");
             }
         }catch(NonUniqueResultException e){
             return String.format("Username already taken!!");
