@@ -31,7 +31,8 @@ public class Grader {
 
         FileReader reader = new FileReader();
 
-        if (compile(fileName)) {
+        String outcome = "";
+        if ((outcome = compile(fileName)).equals(ErrorMessage.Ok.toString())) {
             for (int i = 0; i < inputFiles.size(); i++) {
                 List<String> command = Arrays.asList(fileName + ".exe");
                 ErrorMessage em;
@@ -46,6 +47,8 @@ public class Grader {
                     result.append(" ");
                 }
             }
+        } else {
+            result.append(outcome);
         }
 
         TemporaryFileManager.deleteFile(fileName + ".cpp");
@@ -53,16 +56,16 @@ public class Grader {
         return result.toString();
     }
 
-    private boolean compile(String fileName) {
+    private String compile(String fileName) {
 
         String[] compileCommand = new String[]{"g++", fileName + ".cpp", "-o", fileName, "-std=c++11"};
         ProcessBuilder pb = new ProcessBuilder(compileCommand);
         CommandExecutor executor = new CommandExecutor(Arrays.asList(compileCommand), null);
         executor.executeCommand();
         if (executor.getError().length() != 0) {
-            System.out.print(executor.getError());
+            return executor.getError();
         }
-        return (executor.getError().length() == 0);
+        return (executor.getError().length() == 0) ? ErrorMessage.Ok.toString() : executor.getError();
 
     }
 
