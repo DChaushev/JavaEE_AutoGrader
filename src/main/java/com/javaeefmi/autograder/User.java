@@ -70,7 +70,7 @@ public class User implements Serializable {
     }
 
     public User(String username, String password, String role) {
-
+        super();
         this.username = username;
         this.password = password;
         this.role = role;
@@ -131,7 +131,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.javaeefmi.autograder.Users[ id=" + id + " ]";
+        return "com.javaeefmi.autograder.Users[ id='" + this.id + "' ]";
     }
 
 }

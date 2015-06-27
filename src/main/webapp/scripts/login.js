@@ -20,7 +20,7 @@ $(document).ready(function() {
           $.post('AutoGrader/user/login', {name: username, passwd: passwd}, function(data) {  
                   $("#server-response").text(data);
                   
-                  $.getScript("./js/js-cookie.js", function(){
+                  $.getScript("./scripts/js-cookie.js", function(){
 
                     Cookies.set('AutoGraderUser', username, { expires: 7 });
                     // Use anything defined in the loaded script...
