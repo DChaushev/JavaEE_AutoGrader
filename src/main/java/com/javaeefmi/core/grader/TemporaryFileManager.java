@@ -21,7 +21,11 @@ public class TemporaryFileManager {
 
     public static String createFile(String source) {
 
-        String fileName = String.format("%d%d", System.currentTimeMillis(), new Random().nextInt());
+        File tempDir = new File("temp");
+        if (!tempDir.exists()) {
+            tempDir.mkdir();
+        }
+        String fileName = String.format("%s/%d%d", tempDir.getPath(), System.currentTimeMillis(), new Random().nextInt());
 
         try (PrintWriter writer = new PrintWriter(fileName + ".cpp", "UTF-8")) {
 
