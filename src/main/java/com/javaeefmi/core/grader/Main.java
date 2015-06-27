@@ -13,18 +13,18 @@ import java.util.List;
  */
 public class Main {
 
-    public static void main(String[] args) {
-        String taskName = "rational";
-        String inputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\input";
-        String outputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\output";
-
-        FilesRetriever fr = new FilesRetriever();
-        List<String> inputs = fr.getFiles(inputsFolder);
-        List<String> outputs = fr.getFiles(outputsFolder);
-
-        Grader g = new Grader(source, inputs, outputs);
-        System.out.println(g.runTests());
-    }
+//    public static void main(String[] args) {
+//        String taskName = "rational";
+//        String inputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\input";
+//        String outputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\output";
+//
+//        FilesRetriever fr = new FilesRetriever();
+//        List<String> inputs = fr.getFiles(inputsFolder);
+//        List<String> outputs = fr.getFiles(outputsFolder);
+//
+//        Grader g = new Grader(source, inputs, outputs);
+//        System.out.println(g.runTests());
+//    }
 
     private static final String source = "/* \n"
             + " * File:   main.cpp\n"
