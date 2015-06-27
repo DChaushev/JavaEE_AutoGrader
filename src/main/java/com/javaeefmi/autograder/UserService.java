@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -57,7 +59,19 @@ public class UserService {
     @POST
     @Path("create")
     public String createNewUser(@FormParam("name") String name, @FormParam("passwd") String passwd) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-
+        TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
+        try{
+            User user = query.setParameter("name", name).getSingleResult();
+            if(user != null){
+                return String.format("Username already taken 4yli we!!");
+            }
+        }catch(NonUniqueResultException e){
+            return String.format("Username already taken!!");
+        }catch(NoResultException e){
+            
+        }
+        
+        
         passwd = UserSecurity.MD5(passwd);
         User newUser = new User(name, passwd, Roles.User.toString());
         if (em != null) {
