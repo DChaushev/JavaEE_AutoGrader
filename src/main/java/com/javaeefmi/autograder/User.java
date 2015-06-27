@@ -131,7 +131,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.javaeefmi.autograder.Users[ id='" + this.id + "' ]";
+        return "com.javaeefmi.autograder.Users[id=" + this.id + "]";
     }
 
 }
