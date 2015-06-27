@@ -35,27 +35,34 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tasks.findByTaskName", query = "SELECT t FROM Tasks t WHERE t.taskName = :taskName"),
     @NamedQuery(name = "Tasks.findByTaskFile", query = "SELECT t FROM Tasks t WHERE t.taskFile = :taskFile")})
 public class Tasks implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "task_name")
     private String taskName;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "task_file")
     private String taskFile;
+
     @JoinColumn(name = "test_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Test testId;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
     private Collection<Results> resultsCollection;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taskId")
     private Collection<Test> testCollection;
 
@@ -134,15 +141,12 @@ public class Tasks implements Serializable {
             return false;
         }
         Tasks other = (Tasks) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "com.javaeefmi.autograder.Tasks[ id=" + id + " ]";
     }
-    
+
 }

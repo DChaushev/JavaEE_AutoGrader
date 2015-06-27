@@ -35,24 +35,29 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Test.findByInputRar", query = "SELECT t FROM Test t WHERE t.inputRar = :inputRar"),
     @NamedQuery(name = "Test.findByOutputRar", query = "SELECT t FROM Test t WHERE t.outputRar = :outputRar")})
 public class Test implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
     @Column(name = "input_rar")
     private String inputRar;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
     @Column(name = "output_rar")
     private String outputRar;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
     private Collection<Tasks> tasksCollection;
+
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tasks taskId;
@@ -124,15 +129,12 @@ public class Test implements Serializable {
             return false;
         }
         Test other = (Test) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "com.javaeefmi.autograder.Test[ id=" + id + " ]";
     }
-    
+
 }

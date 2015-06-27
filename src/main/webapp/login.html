@@ -1,89 +1,89 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>AutoGrader</title>
+    <head>
+        <title>AutoGrader</title>
 
-		<!-- meta -->
-		<meta charset="UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	    <!-- css -->
-	    <link rel="stylesheet" href="./css/bootstrap.min.css">
-	    <link rel="stylesheet" href="./css/ionicons.min.css">
-	    <link rel="stylesheet" href="./css/pace.css">
-	    <link rel="stylesheet" href="./css/custom.css">
+        <!-- css -->
+        <link rel="stylesheet" href="./styles/bootstrap.min.css">
+        <link rel="stylesheet" href="./styles/ionicons.min.css">
+        <link rel="stylesheet" href="./styles/pace.css">
+        <link rel="stylesheet" href="./styles/custom.css">
 
-	    <!-- js -->
-	    <script src="./js/jquery-2.1.3.min.js"></script>
-	    <script src="./js/bootstrap.min.js"></script>
-	    <script src="./js/pace.min.js"></script>
-	    <script src="./js/modernizr.custom.js"></script>
-            <script src="./js/login.js"></script>
-	</head>
+        <!-- js -->
+        <script src="./lib/jquery-2.1.3.min.js"></script>
+        <script src="./lib/bootstrap.min.js"></script>
+        <script src="./lib/pace.min.js"></script>
+        <script src="./lib/modernizr.custom.js"></script>
+        <script src="./scripts/login.js"></script>
+    </head>
 
-	<body>
-		<div class="container">	
-			<header id="site-header">
-				<div class="row">
-					<div class="col-md-4 col-sm-5 col-xs-8">
-						<div class="logo">
-							<h1><a href="index.html"><b>Auto</b>Grader</a></h1>
-						</div>
-					</div><!-- col-md-4 -->
-					<div class="col-md-8 col-sm-7 col-xs-4">
-						<nav class="main-nav" role="navigation">
-							<div class="navbar-header">
-  								<button type="button" id="trigger-overlay" class="navbar-toggle">
-    								<span class="ion-navicon"></span>
-  								</button>
-							</div>
+    <body>
+        <div class="container">	
+            <header id="site-header">
+                <div class="row">
+                    <div class="col-md-4 col-sm-5 col-xs-8">
+                        <div class="logo">
+                            <h1><a href="index.html"><b>Auto</b>Grader</a></h1>
+                        </div>
+                    </div><!-- col-md-4 -->
+                    <div class="col-md-8 col-sm-7 col-xs-4">
+                        <nav class="main-nav" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" id="trigger-overlay" class="navbar-toggle">
+                                    <span class="ion-navicon"></span>
+                                </button>
+                            </div>
 
-							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-  								<ul class="nav navbar-nav navbar-right">
-    								<li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
-    								<li class="cl-effect-11"><a href="contests.html" data-hover="Contest">Contests</a></li>
-    								<li class="cl-effect-11"><a href="signup.html" data-hover="Signup">Signup</a></li>
-    								<li class="cl-effect-11"><a href="login.html" data-hover="Login">Login</a></li>
-  								</ul>
-							</div><!-- /.navbar-collapse -->
-						</nav>
-			
-					</div><!-- col-md-8 -->
-				</div>
-			</header>
-		</div>
-		<div class="content-body">
-			<div class="container">
-				<div class="row">
-					<main class="col-md-12">
-						<h1 class="page-title">Login</h1>
-						<article class="post">
-							<div class="entry-content clearfix">
-								<div class="login-form">
-									<div class="row">
-										<div class="col-md-6 col-md-offset-3">
-											<input type="text" name="name" placeholder="Username" id="username">
-											<input type="password" name="passwd" placeholder="Password" id="passwd">
-											<button class="btn-send btn-5 btn-5b ion-ios-paperplane"  id="login-btn"><span>I Concur</span></button>
-										</div>
-									</div>	<!-- row -->
-								</div>
-							</div>
-						</article>
-					</main>
-				</div>
-			</div>
-		</div>
-		<footer id="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<p class="copyright">&copy; 2014 ThemeWagon.com</p>
-					</div>
-				</div>
-			</div>
-		</footer>
-		<script src="./js/script.js"></script>
-		
-	</body>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
+                                    <li class="cl-effect-11"><a href="tasks.html" data-hover="Tasks">Tasks</a></li>
+                                    <li class="cl-effect-11"><a href="signup.html" data-hover="Signup">Signup</a></li>
+                                    <li class="cl-effect-11"><a href="login.html" data-hover="Login">Login</a></li>
+                                </ul>
+                            </div><!-- /.navbar-collapse -->
+                        </nav>
+
+                    </div><!-- col-md-8 -->
+                </div>
+            </header>
+        </div>
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    <main class="col-md-12">
+                        <h1 class="page-title">Login</h1>
+                        <article class="post">
+                            <div class="entry-content clearfix">
+                                <div class="login-form">
+                                    <div class="row">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <input type="text" name="name" placeholder="Username" id="username">
+                                            <input type="password" name="passwd" placeholder="Password" id="passwd">
+                                            <button class="btn-send btn-5 btn-5b ion-ios-paperplane"  id="login-btn"><span>I Concur</span></button>
+                                        </div>
+                                    </div>	<!-- row -->
+                                </div>
+                            </div>
+                        </article>
+                    </main>
+                </div>
+            </div>
+        </div>
+        <footer id="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="copyright">&copy; AutoGrader-FMI</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <script src="./scripts/script.js"></script>
+
+    </body>
 </html>

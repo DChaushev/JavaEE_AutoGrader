@@ -27,28 +27,38 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "Users")
+@NamedQueries({
+    @NamedQuery(name = "User.findAll",
+            query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByName",
+            query = "SELECT u FROM User u WHERE u.username = :name"),})
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "username")
     private String username;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 128)
     @Column(name = "password")
     private String password;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "role")
     private String role;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Results> resultsCollection;
 
@@ -59,8 +69,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User( String username, String password, String role) {
-        
+    public User(String username, String password, String role) {
+
         this.username = username;
         this.password = password;
         this.role = role;
@@ -69,8 +79,6 @@ public class User implements Serializable {
     public Integer getId() {
         return id;
     }
-
-    
 
     public String getUsername() {
         return username;
@@ -118,15 +126,12 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
         return "com.javaeefmi.autograder.Users[ id=" + id + " ]";
     }
-    
+
 }
