@@ -15,15 +15,24 @@ public class Main {
 
 //    public static void main(String[] args) {
 //        String taskName = "rational";
-//        String inputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\input";
-//        String outputsFolder = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\output";
+//
+//        //this two sould be received from the service
+//        String inputsZip = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\input.zip";
+//        String outputsZip = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\output.zip";
+//
+//        String tempInputs = Unzipper.unzipToFolder(inputsZip);
+//        String tempOutputs = Unzipper.unzipToFolder(outputsZip);
 //
 //        FilesRetriever fr = new FilesRetriever();
-//        List<String> inputs = fr.getFiles(inputsFolder);
-//        List<String> outputs = fr.getFiles(outputsFolder);
+//        List<String> inputs = fr.getFiles(tempInputs);
+//        List<String> outputs = fr.getFiles(tempOutputs);
 //
+//        //the source also
 //        Grader g = new Grader(source, inputs, outputs);
 //        System.out.println(g.runTests());
+//
+//        TemporaryFileManager.deleteFile(tempInputs);
+//        TemporaryFileManager.deleteFile(tempOutputs);
 //    }
 
     private static final String source = "/* \n"

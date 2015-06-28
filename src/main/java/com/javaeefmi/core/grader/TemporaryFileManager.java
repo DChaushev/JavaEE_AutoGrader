@@ -41,6 +41,11 @@ public class TemporaryFileManager {
     public static void deleteFile(String fileName) {
         File file = new File(fileName);
         if (file.exists()) {
+            if (file.isDirectory()) {
+                for (File f : file.listFiles()) {
+                    deleteFile(f.getAbsolutePath());
+                }
+            }
             file.delete();
         }
     }
