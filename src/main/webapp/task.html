@@ -1,10 +1,14 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
 <html>
     <head>
-        <title>AutoGrader</title>
-        <!-- meta -->
+        <title>Task preview</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- css -->
         <link rel="stylesheet" href="./styles/bootstrap.min.css">
@@ -40,7 +44,6 @@
         </script>
 
     </head>
-
     <body>
         <div class="container">	
             <header id="site-header">
@@ -82,43 +85,55 @@
                     <main class="col-md-12">
                         <article class="post post-1">
                             <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    Labyrinth 
+                                <h1 class="entry-title">
+                                    Labyrinth
                                 </h1>
                             </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
+                            <div class="entry-content clearfix">
+                                <table class="table table-striped">
+                                    <tr>
+                                        <td>Problem</td>
+                                        <td>Time limit</td>
+                                        <td>Memory limit</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="http://judge.openfmi.net:9280/practice/get_problem_description?contest_id=39&problem_id=115"><u>labyrinth</u></a></td>
+                                        <td>0.3 sec</td>
+                                        <td>16 MB</td>
+                                    </tr>
+                                </table>
+                                <h3>Solutions</h3>
+                                <table class="table table-bordered">
+                                    <tr class="active">
+                                        <td>Submitted on</td>
+                                        <td>Status</td>
+                                        <td>Max Time</td>
+                                        <td>Max Memory</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>28.06.2015 15:29</td>
+                                        <td>ok ok ok ok ok ok tl tl tl tl</td>
+                                        <td>0.996</td>
+                                        <td>8600 KB</td>
+                                        <td><a href="#"><u>View source</u></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>28.06.2015 16:15</td>
+                                        <td>ok ok ok ok ok ok ok ml ml ml</td>
+                                        <td>0.08</td>
+                                        <td>16384 KB</td>
+                                        <td><a href="#"><u>View source</u></a></td>
+                                    </tr>
+                                </table>
+                                <h3>Submit Solution</h3>
+                                <textarea class="form-control" style="width: 400pt; height: 500pt;"></textarea>
+
                                 <div class="read-more cl-effect-14">
-                                    <!-- TODO: put valid link-->
-                                    <a href="./task.html" class="more-link">Browse<span class="meta-nav">→</span></a>
+                                    <a href="#" class="more-link">Submit<span class="meta-nav">→</span></a>
                                 </div>
                             </div>
-
-                            <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    The weighted graph challenge
-                                </h1>
-                            </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
-                                <div class="read-more cl-effect-14">
-                                    <a href="AutoGrader/contest/2" class="more-link">Browse<span class="meta-nav">→</span></a>
-                                </div>
-                            </div>
-
-                            <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    The two towers challenge 
-                                </h1>
-                            </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
-                                <div class="read-more cl-effect-14">
-                                    <a href="AutoGrader/contest/3" class="more-link">Browse<span class="meta-nav">→</span></a>
-                                </div>
-                            </div>
-
-
                         </article>
-
-
                     </main>
                 </div>
             </div>
@@ -132,8 +147,6 @@
                 </div>
             </div>
         </footer>
-
         <script src="./scripts/script.js"></script>
-
     </body>
 </html>
