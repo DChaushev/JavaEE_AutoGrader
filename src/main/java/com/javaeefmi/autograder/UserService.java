@@ -14,6 +14,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONObject;
 
 /**
@@ -32,11 +34,13 @@ public class UserService {
 
     @POST
     @Path("login")
-    public String loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public User loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) {
+        
         TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
+        
         try {
             User user = query.setParameter("name", name).getSingleResult();
-            System.out.println(user.getPassword());
             if (passwd == null ? user.getPassword() == null : passwd.equals(user.getPassword())) {
                 //we go ahead with login
             } else {
@@ -44,8 +48,9 @@ public class UserService {
             }
         } catch (javax.persistence.NoResultException e) {
             //no such user at all, should we tell???
+        } catch (java.lang.IllegalStateException e) {
+            System.out.println("This is freaking bugging me, I have no idea why it gives java.lang.IllegalStateException");
         }
-
         User newUser = new User(name, passwd, Roles.User.toString());
 
         /*
@@ -53,7 +58,9 @@ public class UserService {
          "srvResponce": "ok;nok;"
          }
          */
-        return newUser.toString();
+        
+        
+        return newUser;
     }
 
     @POST
