@@ -23,6 +23,7 @@ and open the template in the editor.
         <script src="./lib/modernizr.custom.js"></script>
         <script src="./scripts/js-cookie.js"></script>
         <script src="./scripts/contests.js"></script>
+        <script src="./scripts/administration.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 if (Cookies.get('AutoGraderUser') === undefined)
@@ -86,52 +87,35 @@ and open the template in the editor.
                         <article class="post post-1">
                             <header class="entry-header">
                                 <h1 class="entry-title">
-                                    Labyrinth
+                                    Users
                                 </h1>
                             </header>
                             <div class="entry-content clearfix">
-                                <table class="table table-striped">
+                                <table id="users" class="table table-striped">
                                     <tr>
-                                        <td>Problem</td>
-                                        <td>Time limit</td>
-                                        <td>Memory limit</td>
+                                        <td>Username</td>
+                                        <td>Role</td>
+                                        <td>Action</td>
                                     </tr>
-                                    <tr>
-                                        <td><a href="http://judge.openfmi.net:9280/practice/get_problem_description?contest_id=39&problem_id=115"><u>labyrinth</u></a></td>
-                                        <td>0.3 sec</td>
-                                        <td>16 MB</td>
-                                    </tr>
-                                </table>
-                                <h3>Solutions</h3>
-                                <table class="table table-bordered">
-                                    <tr class="active">
-                                        <td>Submitted on</td>
-                                        <td>Status</td>
-                                        <td>Max Time</td>
-                                        <td>Max Memory</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>28.06.2015 15:29</td>
-                                        <td>ok ok ok ok ok ok tl tl tl tl</td>
-                                        <td>0.996</td>
-                                        <td>8600 KB</td>
-                                        <td><a href="#"><u>View source</u></a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>28.06.2015 16:15</td>
-                                        <td>ok ok ok ok ok ok ok ml ml ml</td>
-                                        <td>0.08</td>
-                                        <td>16384 KB</td>
-                                        <td><a href="#"><u>View source</u></a></td>
-                                    </tr>
-                                </table>
-                                <h3>Submit Solution</h3>
-                                <textarea class="form-control" style="width: 400pt; height: 500pt;"></textarea>
 
-                                <div class="read-more cl-effect-14">
-                                    <a href="#" class="more-link">Submit<span class="meta-nav">→</span></a>
+                                </table>
+
+                                <h3>Submit Task</h3>
+                                <div>
+                                    <form action="AutoGrader/task/submit" method="post" enctype="multipart/form-data">
+
+                                        <label class="label-default">Input Rar <input type="file" name="inputRar" id="inputRar"></label>
+                                        <label class="label-danger">Output Rar <input type="file" name="outputRar" id="outputRar"></label>
+                                        <label class="label-info">PDF<input type="file" name="pdf" id="pdf"></label>
+                                        <label class="label-info">Task Name  <input type="text" name="name" id="name"></label>
+                                        <div class="read-more cl-effect-14">
+                                            <input class="read-more cl-effect-14" type="submit" value="Create Task" name="submit">
+                                        </div>
+
+                                    </form>           
                                 </div>
+
+
                             </div>
                         </article>
                     </main>

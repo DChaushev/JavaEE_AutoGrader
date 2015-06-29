@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.javaeefmi.core.grader;
+package com.fmi.javaee.autograder.core;
 
 import java.io.File;
 import java.util.Random;

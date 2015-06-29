@@ -1,4 +1,4 @@
-package com.javaeefmi.core.grader;
+package com.fmi.javaee.autograder.core;
 
 import java.util.List;
 
@@ -20,19 +20,8 @@ public class Main {
 //        String inputsZip = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\input.zip";
 //        String outputsZip = "C:\\Users\\Dimitar\\Documents\\Tester\\hw01_" + taskName + "_tests\\output.zip";
 //
-//        String tempInputs = Unzipper.unzipToFolder(inputsZip);
-//        String tempOutputs = Unzipper.unzipToFolder(outputsZip);
-//
-//        FilesRetriever fr = new FilesRetriever();
-//        List<String> inputs = fr.getFiles(tempInputs);
-//        List<String> outputs = fr.getFiles(tempOutputs);
-//
-//        //the source also
-//        Grader g = new Grader(source, inputs, outputs);
-//        System.out.println(g.runTests());
-//
-//        TemporaryFileManager.deleteFile(tempInputs);
-//        TemporaryFileManager.deleteFile(tempOutputs);
+//        Grader g = new Grader();
+//        System.out.println(g.test(source, inputsZip, outputsZip));
 //    }
 
     private static final String source = "/* \n"
