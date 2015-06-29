@@ -21,8 +21,10 @@ $(document).ready(function() {
                   $("#server-response").text(data);
                   
                   $.getScript("./scripts/js-cookie.js", function(){
-
-                    Cookies.set('AutoGraderUser', username, { expires: 7 });
+                    Cookies.set('AutoGraderUser', data.username, { expires: 7 });
+                    Cookies.set('Role',data.role);
+                    //console.log(data);
+                    
                     // Use anything defined in the loaded script...
 
                     window.location.href='./';

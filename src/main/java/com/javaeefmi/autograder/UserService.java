@@ -38,20 +38,28 @@ public class UserService {
     public User loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) {
         
         TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
-        
+        User newUser = new User(name, passwd, Roles.User.toString());
+        System.out.println("user "+ name+" is attempting to login");
         try {
             User user = query.setParameter("name", name).getSingleResult();
+            
             if (passwd == null ? user.getPassword() == null : passwd.equals(user.getPassword())) {
                 //we go ahead with login
+                System.out.println("Users's password was correct");
+                user.setPassword("");
+                return user;
             } else {
                 // we give the user a red error
+                System.out.println("Users's password was not correct");
+                newUser.setPassword("error");
             }
         } catch (javax.persistence.NoResultException e) {
-            //no such user at all, should we tell???
+            newUser.setPassword("error");
+            System.out.println("Users's username was not correct - no such user");
         } catch (java.lang.IllegalStateException e) {
             System.out.println("This is freaking bugging me, I have no idea why it gives java.lang.IllegalStateException");
         }
-        User newUser = new User(name, passwd, Roles.User.toString());
+        
 
         /*
          {
