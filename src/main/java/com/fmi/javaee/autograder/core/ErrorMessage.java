@@ -1,4 +1,4 @@
-package com.javaeefmi.core.grader;
+package com.fmi.javaee.autograder.core;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

@@ -3,20 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.javaeefmi.autograder;
+package com.fmi.javaee.autograder.services;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,21 +28,15 @@ import javax.validation.constraints.Size;
  * @author vankata
  */
 @Entity
-@Table(name = "Results")
+@Table(name = "Test")
 @NamedQueries({
-    @NamedQuery(name = "Results.findAll", query = "SELECT r FROM Results r"),
-    @NamedQuery(name = "Results.findById", query = "SELECT r FROM Results r WHERE r.id = :id"),
-    @NamedQuery(name = "Results.findByScore", query = "SELECT r FROM Results r WHERE r.score = :score"),
-    @NamedQuery(name = "Results.findByStatus", query = "SELECT r FROM Results r WHERE r.status = :status")})
-public class Results implements Serializable {
-
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "source")
-    private String source;
+    @NamedQuery(name = "Test.findAll", query = "SELECT t FROM Test t"),
+    @NamedQuery(name = "Test.findById", query = "SELECT t FROM Test t WHERE t.id = :id"),
+    @NamedQuery(name = "Test.findByInputRar", query = "SELECT t FROM Test t WHERE t.inputRar = :inputRar"),
+    @NamedQuery(name = "Test.findByOutputRar", query = "SELECT t FROM Test t WHERE t.outputRar = :outputRar")})
+public class Test implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -49,31 +45,34 @@ public class Results implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "score")
-    private int score;
+    @Size(min = 1, max = 256)
+    @Column(name = "input_rar")
+    private String inputRar;
 
-    @Size(max = 256)
-    @Column(name = "status")
-    private String status;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 256)
+    @Column(name = "output_rar")
+    private String outputRar;
 
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User userId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "testId")
+    private Collection<Tasks> tasksCollection;
 
     @JoinColumn(name = "task_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Tasks taskId;
 
-    public Results() {
+    public Test() {
     }
 
-    public Results(Integer id) {
+    public Test(Integer id) {
         this.id = id;
     }
 
-    public Results(Integer id, int score) {
+    public Test(Integer id, String inputRar, String outputRar) {
         this.id = id;
-        this.score = score;
+        this.inputRar = inputRar;
+        this.outputRar = outputRar;
     }
 
     public Integer getId() {
@@ -84,28 +83,28 @@ public class Results implements Serializable {
         this.id = id;
     }
 
-    public int getScore() {
-        return score;
+    public String getInputRar() {
+        return inputRar;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public void setInputRar(String inputRar) {
+        this.inputRar = inputRar;
     }
 
-    public String getStatus() {
-        return status;
+    public String getOutputRar() {
+        return outputRar;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setOutputRar(String outputRar) {
+        this.outputRar = outputRar;
     }
 
-    public User getUserId() {
-        return userId;
+    public Collection<Tasks> getTasksCollection() {
+        return tasksCollection;
     }
 
-    public void setUserId(User userId) {
-        this.userId = userId;
+    public void setTasksCollection(Collection<Tasks> tasksCollection) {
+        this.tasksCollection = tasksCollection;
     }
 
     public Tasks getTaskId() {
@@ -126,24 +125,16 @@ public class Results implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Results)) {
+        if (!(object instanceof Test)) {
             return false;
         }
-        Results other = (Results) object;
+        Test other = (Test) object;
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
     @Override
     public String toString() {
-        return "com.javaeefmi.autograder.Results[ id=" + id + " ]";
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
+        return "com.javaeefmi.autograder.Test[ id=" + id + " ]";
     }
 
 }

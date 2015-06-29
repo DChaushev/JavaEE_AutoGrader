@@ -7,6 +7,8 @@ package com.javaeefmi.autograder;
  */
 
 
+import com.fmi.javaee.autograder.services.User;
+import com.fmi.javaee.autograder.services.Roles;
 import java.util.List;
 import javax.management.relation.Role;
 import javax.persistence.EntityManager;

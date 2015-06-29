@@ -28,9 +28,9 @@ public class ApplicationConfig extends Application {
      * out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.javaeefmi.autograder.AutoGraderService.class);
-        resources.add(com.javaeefmi.autograder.TaskService.class);
-        resources.add(com.javaeefmi.autograder.UserService.class);
+        resources.add(com.fmi.javaee.autograder.services.AutoGraderService.class);
+        resources.add(com.fmi.javaee.autograder.services.TaskService.class);
+        resources.add(com.fmi.javaee.autograder.services.UserService.class);
     }
 
 }

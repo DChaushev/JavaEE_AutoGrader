@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.javaeefmi.autograder;
+package com.fmi.javaee.autograder.services;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -1,4 +1,4 @@
-package com.javaeefmi.autograder;
+package com.fmi.javaee.autograder.services;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

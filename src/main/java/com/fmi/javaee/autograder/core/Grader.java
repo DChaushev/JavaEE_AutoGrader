@@ -1,4 +1,4 @@
-package com.javaeefmi.core.grader;
+package com.fmi.javaee.autograder.core;
 
 import java.util.Arrays;
 import java.util.List;
