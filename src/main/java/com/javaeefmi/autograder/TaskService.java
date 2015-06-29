@@ -1,17 +1,30 @@
 package com.javaeefmi.autograder;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 /**
  * @author Daniel Angelov
  */
 @Path("task")
 public class TaskService {
+    
+    private final EntityManager em;
+    public TaskService(){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.javaeefmi_AutoGrader_war_1.0-SNAPSHOTPU");
+        em = emf.createEntityManager();
+    }
+    
     @GET
     @Path("hello")
     public String me()
@@ -23,6 +36,7 @@ public class TaskService {
     @Path("all")
     public String all(@PathParam("id") int id)
     {
+        
         /*
         
         {
@@ -57,6 +71,7 @@ public class TaskService {
     @Path("submit")
     public String submit(@FormParam("user_id") int user_id, @FormParam("src_code") String src_code)
     {
+        
         /*
       {
         "srvResponce": "ok;nok;"
@@ -74,8 +89,15 @@ public class TaskService {
     
     @GET
     @Path("{id}")
+    @Produces("application/json")
     public String get(@PathParam("id") int id)
     {
+        
+        TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findById", Tasks.class);
+        query.setParameter("id", id);
+        Tasks task = query.getSingleResult();
+        
+        
         /*
         
         challenge: {
@@ -88,7 +110,9 @@ public class TaskService {
         
         
         JSONObject user = new JSONObject();
-
+        user.put("chg_id", task.getId());
+        user.put("name", task.getTaskName());
+        user.put("chg_desc",task.getTaskFile());
         
         
         return user.toJSONString();
