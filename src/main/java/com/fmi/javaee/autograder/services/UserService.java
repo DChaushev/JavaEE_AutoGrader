@@ -14,9 +14,7 @@ import javax.persistence.TypedQuery;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import static javax.ws.rs.HttpMethod.PUT;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,47 +37,43 @@ public class UserService {
 
     @POST
     @Path("login")
-
-    
     public String loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         JSONObject response = new JSONObject();
         response.put("srvResponse", "nok");
-        if(passwd == null || passwd.equals("")){
+        if (passwd == null || passwd.equals("")) {
             return response.toJSONString();
-                   
+
         }
-       
+
         TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
-        
-        System.out.println("user "+ name+" is attempting to login");
+
+        System.out.println("user " + name + " is attempting to login");
         try {
             User user = query.setParameter("name", name).getSingleResult();
-            
+
             System.out.println("Users's password was correct");
-                if(user.getPassword().equals(UserSecurity.MD5(passwd))){
-                    
-                    response.replace("srvResponse", "ok");
-                    return response.toJSONString();
-                }
-                
-           
+            if (user.getPassword().equals(UserSecurity.MD5(passwd))) {
+
+                response.replace("srvResponse", "ok");
+                response.put("id", user.getId());
+                response.put("username", name);
+                response.put("role", user.getRole());
+
+//                return response.toJSONString();
+            }
 
         } catch (javax.persistence.NoResultException e) {
-            
+
             System.out.println("Users's username was not correct - no such user");
         } catch (java.lang.IllegalStateException e) {
             System.out.println("This is freaking bugging me, I have no idea why it gives java.lang.IllegalStateException");
         }
-
 
         /*
          {
          "srvResponce": "ok;nok;"
          }
          */
-
-       
-        
         return response.toJSONString();
 
     }
