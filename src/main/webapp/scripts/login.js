@@ -6,17 +6,13 @@ $(document).ready(function () {
         var passwd = $("#passwd").val();
         //var passwd_r = $("#passwd_r").val();
 
-        var validationStatus = 1;
-
         if (username === "" || passwd === "")
         {
             alert("Empty fields!");
             validationStatus = 0;
         }
-
-        if (Boolean(validationStatus))
+        else
         {
-
             $.ajax({
                 url: 'AutoGrader/user/login',
                 type: "POST",
@@ -31,7 +27,7 @@ $(document).ready(function () {
                         // Use anything defined in the loaded script...
 
                         window.location.href = './';
-                    })
+                    });
                 }
             });
         }

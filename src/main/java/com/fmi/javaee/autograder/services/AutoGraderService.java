@@ -15,12 +15,11 @@ import javax.ws.rs.Produces;
  */
 @Path("hello")
 public class AutoGraderService {
-    
+
     @GET
     @Produces("text/plain")
-    public String hello()
-    {
+    public String hello() {
         return "dada111111111111";
     }
-    
+
 }

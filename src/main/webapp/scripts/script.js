@@ -14,7 +14,6 @@ $("#search-menu").click(function (e) {
         val.addClass('ion-ios-search-strong');
     }
 
-
     if (searchvisible === 0) {
         //Search is currently hidden. Slide down and show it.
         $("#search-form").slideDown(200);

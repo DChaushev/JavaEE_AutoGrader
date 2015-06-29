@@ -21,109 +21,97 @@ import org.json.simple.JSONValue;
  */
 @Path("task")
 public class TaskService {
-    
+
     private final EntityManager em;
-    public TaskService(){
+
+    public TaskService() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.javaeefmi_AutoGrader_war_1.0-SNAPSHOTPU");
         em = emf.createEntityManager();
     }
-    
+
     @GET
     @Path("hello")
-    public String me()
-    {
-       return "Hi!";
+    public String me() {
+        return "Hi!";
     }
-    
+
     @GET
     @Path("all")
-    public String all(@PathParam("id") int id)
-    {
+    public String all(@PathParam("id") int id) {
         TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findAll", Tasks.class);
         query.setParameter("id", id);
         List<Tasks> tasks = query.getResultList();
-        Map<String,String> map = new LinkedHashMap<>();
-        
+        Map<String, String> map = new LinkedHashMap<>();
+
         /*
         
-        {
-        challenges:
-        [
-            challenge: {
-                "chg_id" : "challenge id"
-                "name": "challenge name",
+         {
+         challenges:
+         [
+         challenge: {
+         "chg_id" : "challenge id"
+         "name": "challenge name",
 
-            },
-            challenge: {
-                    "chg_id" : "challenge id"
-                    "name": "challenge name",
+         },
+         challenge: {
+         "chg_id" : "challenge id"
+         "name": "challenge name",
 
-                },
-            challenge: {
-                    "chg_id" : "challenge id"
-                    "name": "challenge name",
+         },
+         challenge: {
+         "chg_id" : "challenge id"
+         "name": "challenge name",
 
-                }
-                ...
-        ]
-        }
-        */
-        for(Tasks t: tasks){
-            map.put("chg_id", ""+t.getId());
+         }
+         ...
+         ]
+         }
+         */
+        for (Tasks t : tasks) {
+            map.put("chg_id", "" + t.getId());
             map.put("name", t.getTaskName());
         }
-       
 
         return JSONValue.toJSONString(map);
     }
 
     @POST
     @Path("submit")
-    public String submit(@FormParam("user_id") int user_id, @FormParam("src_code") String src_code)
-    {
-        
+    public String submit(@FormParam("user_id") int user_id, @FormParam("src_code") String src_code) {
+
         /*
-      {
-        "srvResponce": "ok;nok;"
-      }
-      */
-        
-        
+         {
+         "srvResponce": "ok;nok;"
+         }
+         */
         JSONObject user = new JSONObject();
 
-        
-        
         return user.toJSONString();
     }
-    
-    
+
     @GET
     @Path("{id}")
     @Produces("application/json")
-    public String get(@PathParam("id") int id)
-    {
-        
+    public String get(@PathParam("id") int id) {
+
         TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findById", Tasks.class);
         query.setParameter("id", id);
         Tasks task = query.getSingleResult();
-  
+
         /*
         
-        challenge: {
+         challenge: {
         
-            "chg_id": "id of the challenge",
-            "name": "name of the challenge",
-            "chg_desc": "decscription of the challenge"
-        }
-        */
-          
+         "chg_id": "id of the challenge",
+         "name": "name of the challenge",
+         "chg_desc": "decscription of the challenge"
+         }
+         */
         JSONObject user = new JSONObject();
         user.put("chg_id", task.getId());
         user.put("name", task.getTaskName());
-        user.put("chg_desc",task.getTaskFile());  
+        user.put("chg_desc", task.getTaskFile());
         return user.toJSONString();
-    }  
-    
-    
+    }
 
 }

@@ -10,6 +10,7 @@ package com.fmi.javaee.autograder.services;
  * @author vankata
  */
 public enum Roles {
+
     User,
     Administrator;
 }

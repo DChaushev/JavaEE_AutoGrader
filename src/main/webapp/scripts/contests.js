@@ -1,3 +1,3 @@
-$(document).ready(function() {
-   //alert("booom!");
+$(document).ready(function () {
+    //alert("booom!");
 });
