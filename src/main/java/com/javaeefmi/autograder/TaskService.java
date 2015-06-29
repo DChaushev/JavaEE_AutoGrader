@@ -1,5 +1,8 @@
 package com.javaeefmi.autograder;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,6 +39,10 @@ public class TaskService {
     @Path("all")
     public String all(@PathParam("id") int id)
     {
+        TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findAll", Tasks.class);
+        query.setParameter("id", id);
+        List<Tasks> tasks = query.getResultList();
+        Map<String,String> map = new LinkedHashMap<>();
         
         /*
         
@@ -61,10 +68,13 @@ public class TaskService {
         ]
         }
         */
-        
-        JSONObject user = new JSONObject();
+        for(Tasks t: tasks){
+            map.put("chg_id", ""+t.getId());
+            map.put("name", t.getTaskName());
+        }
+       
 
-        return user.toJSONString();
+        return JSONValue.toJSONString(map);
     }
 
     @POST
@@ -96,8 +106,7 @@ public class TaskService {
         TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findById", Tasks.class);
         query.setParameter("id", id);
         Tasks task = query.getSingleResult();
-        
-        
+  
         /*
         
         challenge: {
@@ -107,14 +116,11 @@ public class TaskService {
             "chg_desc": "decscription of the challenge"
         }
         */
-        
-        
+          
         JSONObject user = new JSONObject();
         user.put("chg_id", task.getId());
         user.put("name", task.getTaskName());
-        user.put("chg_desc",task.getTaskFile());
-        
-        
+        user.put("chg_desc",task.getTaskFile());  
         return user.toJSONString();
     }  
 
