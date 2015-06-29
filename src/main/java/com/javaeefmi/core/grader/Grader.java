@@ -14,17 +14,24 @@ import java.util.List;
  */
 public class Grader {
 
-    private final String source;
-    private final List<String> inputFiles;
-    private final List<String> outputFiles;
+    public String test(String source, String inputsZip, String outputsZip) {
 
-    public Grader(String source, List inputFiles, List outputFiles) {
-        this.source = source;
-        this.inputFiles = inputFiles;
-        this.outputFiles = outputFiles;
+        String tempInputs = Unzipper.unzipToFolder(inputsZip);
+        String tempOutputs = Unzipper.unzipToFolder(outputsZip);
+
+        FilesRetriever fr = new FilesRetriever();
+        List<String> inputs = fr.getFiles(tempInputs);
+        List<String> outputs = fr.getFiles(tempOutputs);
+
+        String result = this.runTests(source, inputs, outputs);
+
+        TemporaryFileManager.deleteFile(tempInputs);
+        TemporaryFileManager.deleteFile(tempOutputs);
+
+        return result;
     }
 
-    public String runTests() {
+    private String runTests(String source, List<String> inputFiles, List<String> outputFiles) {
 
         String fileName = TemporaryFileManager.createFile(source);
         StringBuilder result = new StringBuilder();
