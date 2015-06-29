@@ -2,6 +2,7 @@ package com.javaeefmi.autograder;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -34,27 +35,31 @@ public class UserService {
 
     @POST
     @Path("login")
-    @Produces(MediaType.APPLICATION_JSON)
-    public User loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) {
-        
+    
+    public String loginUser(@FormParam("name") String name, @FormParam("passwd") String passwd) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        JSONObject response = new JSONObject();
+        response.put("srvResponse", "nok");
+        if(passwd == null || passwd.equals("")){
+            return response.toJSONString();
+                   
+        }
+        boolean flag = false;
         TypedQuery<User> query = em.createNamedQuery("User.findByName", User.class);
-        User newUser = new User(name, passwd, Roles.User.toString());
+        
         System.out.println("user "+ name+" is attempting to login");
         try {
             User user = query.setParameter("name", name).getSingleResult();
             
-            if (passwd == null ? user.getPassword() == null : passwd.equals(user.getPassword())) {
-                //we go ahead with login
-                System.out.println("Users's password was correct");
-                user.setPassword("");
-                return user;
-            } else {
-                // we give the user a red error
-                System.out.println("Users's password was not correct");
-                newUser.setPassword("error");
-            }
+            System.out.println("Users's password was correct");
+                if(user.getPassword().equals(UserSecurity.MD5(passwd))){
+                    flag = true;
+                    response.replace("srvResponse", "ok");
+                    return response.toJSONString();
+                }
+                
+           
         } catch (javax.persistence.NoResultException e) {
-            newUser.setPassword("error");
+            
             System.out.println("Users's username was not correct - no such user");
         } catch (java.lang.IllegalStateException e) {
             System.out.println("This is freaking bugging me, I have no idea why it gives java.lang.IllegalStateException");
@@ -66,9 +71,9 @@ public class UserService {
          "srvResponce": "ok;nok;"
          }
          */
+       
         
-        
-        return newUser;
+        return response.toJSONString();
     }
 
     @POST
