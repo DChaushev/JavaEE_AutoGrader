@@ -184,7 +184,7 @@ public class UserService {
             if (user != null) {
                 em.getTransaction().begin();
                 em.persist(user);
-                System.out.println(user.getRole());
+                //System.out.println(user.getRole());
                 if (user.getRole().toString().equals("User")) {
                     user.setRole("Administrator");
                 } else {
