@@ -19,15 +19,20 @@ $(document).ready(function () {
                 data: {name: username, passwd: passwd},
                 dataType: "json",
                 success: function (data) {
-                    $.getScript("./scripts/js-cookie.js", function () {
 
-                        Cookies.set('AutoGraderUser', data.username, {expires: 7});
-                        Cookies.set('Role', data.role);
+                    if (data.srvResponse === "ok") {
+                        $.getScript("./scripts/js-cookie.js", function () {
 
-                        // Use anything defined in the loaded script...
+                            console.log(data);
+                            Cookies.set('AutoGraderUser', data.username, {expires: 7});
+                            Cookies.set('Role', data.role);
 
-                        window.location.href = './';
-                    });
+                            window.location.href = './';
+                        });
+                    } else {
+                        alert("Invalid username or password!");
+                    }
+
                 }
             });
         }
