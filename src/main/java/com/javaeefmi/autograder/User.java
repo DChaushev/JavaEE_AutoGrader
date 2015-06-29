@@ -31,7 +31,8 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findAll",
             query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findByName",
-            query = "SELECT u FROM User u WHERE u.username = :name"),})
+            query = "SELECT u FROM User u WHERE u.username = :name") })
+
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,7 +56,7 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
+    @Size(min = 1, max = 20)
     @Column(name = "role")
     private String role;
 
