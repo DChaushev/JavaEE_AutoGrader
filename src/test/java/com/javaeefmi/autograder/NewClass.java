@@ -39,7 +39,7 @@ public class NewClass {
             javax.persistence.Query q = em.createNativeQuery("select * from Users as c",User.class);
             int p = q.getFirstResult();
             User u = (User)q.getResultList().get(p);
-            System.out.println(u);
+            System.out.println(u.getUsername());
         } finally {
             em.close();
         }
