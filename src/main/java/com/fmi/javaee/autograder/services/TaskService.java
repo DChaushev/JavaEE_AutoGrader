@@ -2,6 +2,8 @@ package com.fmi.javaee.autograder.services;
 
 
 import com.fmi.javaee.autograder.core.SaveTasks;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.io.IOException;
@@ -136,8 +138,26 @@ public class TaskService {
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response createTask(@FormDataParam("pdf") InputStream pdfFile, @FormDataParam("pdf") FormDataContentDisposition fileDetail){
-        //System.out.println("Task name " + taskName);
-        SaveTasks.writeToFile(pdfFile, "pdf");
+        System.out.println("File details " + fileDetail);
+        String fileLocation = "d://" + fileDetail.getFileName();  
+                    //saving file  
+        try {
+            FileOutputStream out = new FileOutputStream(new File(fileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            out = new FileOutputStream(new File(fileLocation));
+            while ((read = pdfFile.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("File successfully uploaded to : " + fileLocation);
+        
+            
+        //SaveTasks.writeToFile(pdfFile, "pdf");
        // SaveTasks.writeToFile(outputRar, "outTests");
        // SaveTasks.writeToFile(inputRar, "inputRar");
         return Response.status(200).entity("Its ok").build();
