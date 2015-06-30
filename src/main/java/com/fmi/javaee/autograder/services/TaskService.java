@@ -1,6 +1,5 @@
 package com.fmi.javaee.autograder.services;
 
-
 import com.fmi.javaee.autograder.core.SaveTasks;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,14 +8,17 @@ import java.util.LinkedHashMap;
 import java.io.IOException;
 import java.io.IOException;
 
-
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -27,19 +29,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-
-
 import javax.ws.rs.core.Response;
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import org.json.simple.JSONArray;
 
-
 import org.json.simple.JSONArray;
-
 
 import org.json.simple.JSONArray;
 
@@ -127,41 +127,62 @@ public class TaskService {
             rs_arr.add(r);
         }
 
-
         result.put("results", rs_arr);
         return result.toJSONString();
     }
 
-
-    
     @POST
     @Path("upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response createTask(@FormDataParam("pdf") InputStream pdfFile, @FormDataParam("pdf") FormDataContentDisposition fileDetail){
-        System.out.println("File details " + fileDetail);
-        String fileLocation = "d://" + fileDetail.getFileName();  
-                    //saving file  
-        try {
-            FileOutputStream out = new FileOutputStream(new File(fileLocation));
-            int read = 0;
-            byte[] bytes = new byte[1024];
-            out = new FileOutputStream(new File(fileLocation));
-            while ((read = pdfFile.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
-            out.flush();
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("File successfully uploaded to : " + fileLocation);
+    public Response createTask(FormDataMultiPart formParams) throws URISyntaxException {
+        Map<String, List<FormDataBodyPart>> fieldsByName = formParams.getFields();
+        FormDataBodyPart namePart = formParams.getField("name");
+        String taskName = namePart.getValue();
+        String fileName = formParams.getField("pdf").getContentDisposition().getFileName();
+        String input = formParams.getField("inputRar").getContentDisposition().getFileName();
+        String output = formParams.getField("outputRar").getContentDisposition().getFileName();
+        Tasks task = new Tasks();
+        task.setTaskName(taskName); 
+        em.getTransaction().begin();
+        em.persist(task);
+        em.flush();
+        em.getTransaction().commit();
+        Integer id;
+        TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findByTaskName", Tasks.class);
+        query.setParameter("taskName", taskName);
+        Tasks t = query.getSingleResult();
+        id = t.getId();
+        String location = System.getProperty("user.dir") + "Problem Set" + id;
+        Test test = new Test();
+        test.setInputRar(location + input);
+        test.setOutputRar(location + output);
+        test.setTaskId(t);
+        em.getTransaction().begin();
+        em.persist(test);
+        em.flush();
+        em.getTransaction().commit();
+        TypedQuery<Test> q = em.createNamedQuery("Test.findByTaskId", Test.class);
+        q.setParameter("task_id", id);
+       test = q.getSingleResult();     
+       query = em.createNamedQuery("Tasks.updateTask", Tasks.class);
+        query.setParameter("testIds", test.getId());  
+        query.setParameter("ID", id);
+        query.setParameter("taskFile", location+fileName);
+        query.executeUpdate();
         
-            
-        //SaveTasks.writeToFile(pdfFile, "pdf");
-       // SaveTasks.writeToFile(outputRar, "outTests");
-       // SaveTasks.writeToFile(inputRar, "inputRar");
-        return Response.status(200).entity("Its ok").build();
+        for (List<FormDataBodyPart> fields : fieldsByName.values()) {
+            for (FormDataBodyPart field : fields) {
+                if (field.getName().equals("name")) {
+                    continue;
+                }
+                
+                InputStream is = field.getEntityAs(InputStream.class);
+                FormDataContentDisposition contendDisposion = field.getFormDataContentDisposition();
+                SaveTasks.writeToFile(is, contendDisposion.getFileName(),id);
+            }
+        }
+
+        return Response.ok().build();
     }
-    
-  
+
 }

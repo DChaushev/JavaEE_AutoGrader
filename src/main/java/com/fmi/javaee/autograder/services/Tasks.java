@@ -33,7 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Tasks.findAll", query = "SELECT t FROM Tasks t"),
     @NamedQuery(name = "Tasks.findById", query = "SELECT t FROM Tasks t WHERE t.id = :id"),
     @NamedQuery(name = "Tasks.findByTaskName", query = "SELECT t FROM Tasks t WHERE t.taskName = :taskName"),
-    @NamedQuery(name = "Tasks.findByTaskFile", query = "SELECT t FROM Tasks t WHERE t.taskFile = :taskFile")})
+    @NamedQuery(name = "Tasks.findByTaskFile", query = "SELECT t FROM Tasks t WHERE t.taskFile = :taskFile"),
+    @NamedQuery(name = "Tasks.updateTask", query = "UPDATE Tasks SET  test_id= :testId, task_file= :taskFile WHERE id= :ID")
+})
 public class Tasks implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -18,8 +18,10 @@ import java.io.OutputStream;
  */
 public class SaveTasks {
 
-    public static void writeToFile(InputStream stream, String fileName) {
-        try (OutputStream out = new FileOutputStream(new File(fileName))) {
+    public static void writeToFile(InputStream stream, String fileName, Integer id) {
+        String fileLocation = System.getProperty("user.dir") + "Problem Set" + id +fileName;
+        System.out.println("The location is " + fileLocation);
+        try (OutputStream out = new FileOutputStream(new File(fileLocation))) {
             int read = 0;
             byte bytes[] = new byte[1024];
             while ((read = stream.read(bytes)) != -1) {
