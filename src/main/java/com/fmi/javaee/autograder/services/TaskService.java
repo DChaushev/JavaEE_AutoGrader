@@ -1,5 +1,6 @@
 package com.fmi.javaee.autograder.services;
 
+import com.fmi.javaee.autograder.core.Grader;
 import com.fmi.javaee.autograder.core.SaveTasks;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -94,9 +95,20 @@ public class TaskService {
 
         Results newResult = new Results();
 
+        //TODO: get the test from the database!
+        TypedQuery<Test> test_query = em.createNamedQuery("Test.findByTaskId", Test.class);
+        test_query.setParameter("task_id", task_id);
+        Test test = test_query.getSingleResult();
+
+        //This should work - if you get errors - there are no such files on the file system.
+        //Change the path!
+        Grader grader = new Grader();
+        String output = grader.test(src_code, test.getInputRar(), test.getOutputRar());
+
         newResult.setUserId(user_query.getSingleResult());
         newResult.setTaskId(task_query.getSingleResult());
         newResult.setSource(src_code);
+        newResult.setStatus(output);
         if (em != null) {
             em.getTransaction().begin();
             em.persist(newResult);
