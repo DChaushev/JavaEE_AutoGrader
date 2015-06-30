@@ -32,6 +32,8 @@
 
                     $("#logout").click(function () {
                         Cookies.remove('AutoGraderUser');
+                        Cookies.remove('Role');
+                        Cookies.remove('AutoGraderUserId');
                         window.location.href = './';
                     });
                     if (Cookies.get('Role') === "Administrator") {

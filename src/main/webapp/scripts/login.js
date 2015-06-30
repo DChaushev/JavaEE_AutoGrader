@@ -26,6 +26,7 @@ $(document).ready(function () {
                             console.log(data);
                             Cookies.set('AutoGraderUser', data.username, {expires: 7});
                             Cookies.set('Role', data.role);
+                            Cookies.set('AutoGraderUserId', data.id);
 
                             window.location.href = './';
                         });
