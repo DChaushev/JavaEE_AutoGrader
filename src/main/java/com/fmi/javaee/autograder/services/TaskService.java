@@ -1,12 +1,24 @@
 package com.fmi.javaee.autograder.services;
 
+
+import com.fmi.javaee.autograder.core.SaveTasks;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.LinkedHashMap;
 import java.io.IOException;
+import java.io.IOException;
+
+
+import java.io.IOException;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -14,7 +26,23 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+
+
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import org.json.simple.JSONArray;
+
+
+import org.json.simple.JSONArray;
+
+
+import org.json.simple.JSONArray;
+
 import org.json.simple.JSONObject;
 
 /**
@@ -109,8 +137,41 @@ public class TaskService {
             rs_arr.add(r);
         }
 
+
         result.put("results", rs_arr);
         return result.toJSONString();
     }
 
+
+    
+    @POST
+    @Path("upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response createTask(@FormDataParam("pdf") InputStream pdfFile, @FormDataParam("pdf") FormDataContentDisposition fileDetail){
+        System.out.println("File details " + fileDetail);
+        String fileLocation = "d://" + fileDetail.getFileName();  
+                    //saving file  
+        try {
+            FileOutputStream out = new FileOutputStream(new File(fileLocation));
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            out = new FileOutputStream(new File(fileLocation));
+            while ((read = pdfFile.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("File successfully uploaded to : " + fileLocation);
+        
+            
+        //SaveTasks.writeToFile(pdfFile, "pdf");
+       // SaveTasks.writeToFile(outputRar, "outTests");
+       // SaveTasks.writeToFile(inputRar, "inputRar");
+        return Response.status(200).entity("Its ok").build();
+    }
+    
+  
 }
