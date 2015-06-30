@@ -30,6 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -182,6 +183,27 @@ public class TaskService {
         }
 
         return Response.ok().build();
+    }
+
+    @GET
+    @Path("pdf/{task_id}")
+    @Produces("application/pdf")
+    public Response getPDF(@PathParam("task_id") String taskId) {
+        File file;
+        Tasks task = em.find(Tasks.class, Integer.parseInt(taskId));
+        try {
+            file = new File(task.getTaskFile());
+            ResponseBuilder response = Response.ok((Object) file);
+            response.header("Content-Disposition", "attachment; filename=\"test_PDF_file.pdf\"");
+            return response.build();
+        } catch (Exception e) {
+            System.out.println(e);
+            ResponseBuilder response = Response.serverError();
+            return response.build();
+        }
+        
+
+
     }
 
 }
