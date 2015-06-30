@@ -102,19 +102,24 @@ and open the template in the editor.
 
                                 <h3>Submit Task</h3>
                                 <div>
-                                    <form action="AutoGrader/task/submit" method="post" enctype="multipart/form-data">
+                                    <form action="AutoGrader/task/upload" method="post" enctype="multipart/form-data">
 
-                                        <label class="label-default">Input Rar <input type="file" name="inputRar" id="inputRar"></label>
-                                        <label class="label-danger">Output Rar <input type="file" name="outputRar" id="outputRar"></label>
-                                        <label class="label-info">PDF<input type="file" name="pdf" id="pdf"></label>
-                                        <label class="label-info">Task Name  <input type="text" name="name" id="name"></label>
+                                        <!--<label class="label-default">Input Rar <input type="file" name="inputRar" id="inputRar"></label>-->
+                                        <!--<label class="label-danger">Output Rar <input type="file" name="outputRar" id="outputRar"></label>-->
+                                        <label class="label-info">PDF<input type="file" name="pdf" id="pdf" /></label>
+                                        <!--<label class="label-info">Task Name  <input type="text" name="name" id="name"></label>-->
                                         <div class="read-more cl-effect-14">
                                             <input class="read-more cl-effect-14" type="submit" value="Create Task" name="submit">
                                         </div>
 
-                                    </form>           
+                                    </form>   
+                                    
                                 </div>
 
+
+                                       
+                                    
+                                </div>
 
                             </div>
                         </article>

@@ -1,5 +1,7 @@
 package com.fmi.javaee.autograder.services;
 
+import com.fmi.javaee.autograder.core.SaveTasks;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,12 +9,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
@@ -113,5 +120,17 @@ public class TaskService {
         user.put("chg_desc", task.getTaskFile());
         return user.toJSONString();
     }
-
+    
+    @POST
+    @Path("upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response createTask(@FormDataParam("pdf") InputStream pdfFile, @FormDataParam("pdf") FormDataContentDisposition fileDetail){
+        //System.out.println("Task name " + taskName);
+        SaveTasks.writeToFile(pdfFile, "pdf");
+       // SaveTasks.writeToFile(outputRar, "outTests");
+       // SaveTasks.writeToFile(inputRar, "inputRar");
+        return Response.status(200).entity("Its ok").build();
+    }
+    
+  
 }
