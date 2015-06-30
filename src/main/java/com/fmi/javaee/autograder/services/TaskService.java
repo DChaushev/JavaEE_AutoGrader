@@ -153,35 +153,30 @@ public class TaskService {
         String output = formParams.getField("outputRar").getContentDisposition().getFileName();
         Tasks task = new Tasks();
         task.setTaskName(taskName);
-        em.getTransaction().begin();
-        em.persist(task);
-        em.flush();
-        em.getTransaction().commit();
-        Integer id;
-        TypedQuery<Tasks> query = em.createNamedQuery("Tasks.findByTaskName", Tasks.class);
-        query.setParameter("taskName", taskName);
-        Tasks t = query.getSingleResult();
-        id = t.getId();
-        String location = System.getProperty("user.dir") + "Problem Set" + id;
-        Test test = new Test();
-        test.setInputRar(location + input);
-        test.setOutputRar(location + output);
-        test.setTaskId(t);
-        em.getTransaction().begin();
-        em.persist(test);
-        em.flush();
-        em.getTransaction().commit();
-        
+        String separator = System.getProperty("file.separator");
+        String location = System.getProperty("user.dir") + separator + "Problem Set" + separator + taskName + separator;
+        try {
+            em.getTransaction().begin();
+            Test test = new Test();
+            test.setInputRar(location + input);
+            test.setOutputRar(location + output);
+            test.setTaskId(task);
+            em.persist(test);
+            em.persist(task);
+            em.flush();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         for (List<FormDataBodyPart> fields : fieldsByName.values()) {
             for (FormDataBodyPart field : fields) {
                 if (field.getName().equals("name")) {
                     continue;
                 }
-
                 InputStream is = field.getEntityAs(InputStream.class);
                 FormDataContentDisposition contendDisposion = field.getFormDataContentDisposition();
-                SaveTasks.writeToFile(is, contendDisposion.getFileName(), id);
+                SaveTasks.writeToFile(is, location + contendDisposion.getFileName());
             }
         }
 
