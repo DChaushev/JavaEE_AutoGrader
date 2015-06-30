@@ -43,24 +43,27 @@ public class ResultsService {
         
         TypedQuery<Results> query = em.createNamedQuery("Results.findByUserByTask", Results.class);
         
-        com.fmi.javaee.autograder.services.User user = em.find(User.class,Integer.parseInt(userId));
-        com.fmi.javaee.autograder.services.Tasks task = em.find(Tasks.class,Integer.parseInt(taskId));
+        User user = em.find(User.class,Integer.parseInt(userId));
+        Tasks task = em.find(Tasks.class,Integer.parseInt(taskId));
         query.setParameter("userId", user );
         query.setParameter("taskId", task );
         
         return query.getResultList();
     }
 
-    /**
-     * PUT method for updating or creating an instance of ResultsService
-     * @param content representation for the resource
-     * @return an HTTP response with content of the updated or created resource.
-     */
     
     @POST
     @Path("create")
-    public String createResult(@FormParam("solution") String solution, @FormParam("user_id") String user_id,@FormParam("task_id") String task_id) {
+    public String createResult(@FormParam("solution") String solution, @FormParam("user_id") String userId,@FormParam("task_id") String taskId) {
+        User user = em.find(User.class,Integer.parseInt(userId));
+        Tasks task = em.find(Tasks.class,Integer.parseInt(taskId));
+        Results result = new Results();
+        result.setUserId(user);
+        result.setTaskId(task);
+        result.setScore(100);
+        result.setSource(solution);
+        result.setStatus("Not Implemented yet");
         
-        return "test";
+        return "We should probably return score???";
     }
 }
