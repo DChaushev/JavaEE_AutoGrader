@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.fmi.javaee.autograder.services.AutoGraderService.class);
+        resources.add(com.fmi.javaee.autograder.services.ResultsService.class);
         resources.add(com.fmi.javaee.autograder.services.TaskService.class);
         resources.add(com.fmi.javaee.autograder.services.UserService.class);
     }

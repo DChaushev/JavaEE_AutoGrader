@@ -18,7 +18,7 @@
         <script src="./lib/pace.min.js"></script>
         <script src="./lib/modernizr.custom.js"></script>
         <script src="./scripts/js-cookie.js"></script>
-        <script src="./scripts/tasks.js"></script>
+        <script src="./scripts/me.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 if (Cookies.get('AutoGraderUser') === undefined)
@@ -37,12 +37,12 @@
                         Cookies.remove('Role');
                         window.location.href = './';
                     });
-                    if (Cookies.get('Role') === "Administrator") {
+                    if (Cookies.get('Role') === "Administrator"){
                         $("#administration").show();
                     }
                 }
-
-
+                
+                
             });
         </script>
 
@@ -70,13 +70,13 @@
                                     <li class="cl-effect-11" id="administration" style="display: none"><a href="administration.html" data-hover="Administration">Administration</a></li>
                                     <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
                                     <li class="cl-effect-11"><a href="tasks.html" data-hover="Tasks">Tasks</a></li>
-
+                                    
                                     <li class="cl-effect-11" id="signup" style="display: none"><a href="signup.html" data-hover="Signup">Signup</a></li>
                                     <li class="cl-effect-11" id="userprofile" style="display: none"><a href="me.html" >My Profile</a></li>
 
                                     <li class="cl-effect-11" id="login" style="display: none"><a href="login.html" data-hover="Login">Login</a></li>
                                     <li class="cl-effect-11" id="logout" style="display: none"><a href="#" data-hover="Logout">Logout</a></li>
-
+                                    
 
                                 </ul>
                             </div><!-- /.navbar-collapse -->
@@ -93,11 +93,11 @@
                         <article class="post post-1">
                             <header class="entry-header">
                                 <h1 class="entry-title">
-
+                                  
                                 </h1>
                             </header>
                             <div class="entry-content clearfix">
-
+                               
                             </div>
                         </article>
 
