@@ -6,11 +6,29 @@ $(document).ready(function () {
         return result && unescape(result[1]) || "";
     }
 
+    $("#submit-btn").click(function () {
+
+        if ($(".form-control").val() === "")
+        {
+            alert("Please provide a source code!");
+        }
+        else
+        {
+            $.post('AutoGrader/task/submit', {user: Cookies.get('AutoGraderUser'), task_id: parseInt(getUrlVar("id")), src_code: $(".form-control").val()}, function (data) {
+                if (data.hasOwnProperty("err"))
+                    alert(data.err);
+                else
+                {
+                    window.location.href = './task.html?id=' + getUrlVar("id");
+                }
+            });
+        }
+    });
+
     $.get("AutoGrader/task/" + getUrlVar("id"), function (data) {
 
         $(".entry-title").text(data.task_name);
         $("#task_file").html("<div> <a href='http://" + data.task_file + "'>" + data.task_name + "</a></div>");
-
 
         $.each(data.results, function (index, value) {
             $("#task-results").append("<tr>\n\
@@ -21,7 +39,5 @@ $(document).ready(function () {
             <td>view source</td>\n\
             </tr>");
         });
-
-
     });
 });
