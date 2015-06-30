@@ -152,7 +152,7 @@ public class TaskService {
         String input = formParams.getField("inputRar").getContentDisposition().getFileName();
         String output = formParams.getField("outputRar").getContentDisposition().getFileName();
         Tasks task = new Tasks();
-        task.setTaskName(taskName); 
+        task.setTaskName(taskName);
         em.getTransaction().begin();
         em.persist(task);
         em.flush();
@@ -171,24 +171,17 @@ public class TaskService {
         em.persist(test);
         em.flush();
         em.getTransaction().commit();
-        TypedQuery<Test> q = em.createNamedQuery("Test.findByTaskId", Test.class);
-        q.setParameter("task_id", id);
-       test = q.getSingleResult();     
-       query = em.createNamedQuery("Tasks.updateTask", Tasks.class);
-        query.setParameter("testIds", test.getId());  
-        query.setParameter("ID", id);
-        query.setParameter("taskFile", location+fileName);
-        query.executeUpdate();
         
+
         for (List<FormDataBodyPart> fields : fieldsByName.values()) {
             for (FormDataBodyPart field : fields) {
                 if (field.getName().equals("name")) {
                     continue;
                 }
-                
+
                 InputStream is = field.getEntityAs(InputStream.class);
                 FormDataContentDisposition contendDisposion = field.getFormDataContentDisposition();
-                SaveTasks.writeToFile(is, contendDisposion.getFileName(),id);
+                SaveTasks.writeToFile(is, contendDisposion.getFileName(), id);
             }
         }
 
