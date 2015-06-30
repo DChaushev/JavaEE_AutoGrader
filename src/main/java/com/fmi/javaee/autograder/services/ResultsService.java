@@ -29,8 +29,9 @@ public class ResultsService {
     }
 
     @GET
-    @Path("{user_id}")
-    public String getUserResults(@PathParam("user_id") String id) {
+    @Path("{user_id}/{task_id}")
+    public String getUserResults(@PathParam("user_id") String userId,@PathParam("task_id") String taskId) {
+        
         return "not yet implemented";
     }
 
@@ -42,7 +43,7 @@ public class ResultsService {
     
     @POST
     @Path("create")
-    public String createResult(@FormParam("solution") String solution, @FormParam("user_id") String user_id) {
+    public String createResult(@FormParam("solution") String solution, @FormParam("user_id") String user_id,@FormParam("task_id") String task_id) {
         
         return "test";
     }
