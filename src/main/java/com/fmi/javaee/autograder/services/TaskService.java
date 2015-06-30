@@ -31,12 +31,6 @@ public class TaskService {
     }
 
     @GET
-    @Path("hello")
-    public String me() {
-        return "Hi!";
-    }
-
-    @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
     public String all() throws IOException {
@@ -58,16 +52,32 @@ public class TaskService {
 
     @POST
     @Path("submit")
-    public String submit(@FormParam("user_id") int user_id, @FormParam("src_code") String src_code) {
+    public String submit(@FormParam("user") String user,
+            @FormParam("task_id") int task_id,
+            @FormParam("src_code") String src_code) {
 
-        /*
-         {
-         "srvResponce": "ok;nok;"
-         }
-         */
-        JSONObject user = new JSONObject();
+        JSONObject result = new JSONObject();
 
-        return user.toJSONString();
+        TypedQuery<Tasks> task_query = em.createNamedQuery("Tasks.findById", Tasks.class);
+        task_query.setParameter("id", task_id);
+
+        TypedQuery<User> user_query = em.createNamedQuery("User.findByName", User.class);
+        user_query.setParameter("name", user);
+
+        Results newResult = new Results();
+
+        newResult.setUserId(user_query.getSingleResult());
+        newResult.setTaskId(task_query.getSingleResult());
+        newResult.setSource(src_code);
+        if (em != null) {
+            em.getTransaction().begin();
+            em.persist(newResult);
+            em.flush();
+            em.getTransaction().commit();
+        } else {
+            result.put("err", "error in the service!");
+        }
+        return result.toJSONString();
     }
 
     @GET
