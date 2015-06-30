@@ -7,18 +7,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- css -->
-        <link rel="stylesheet" href="./styles/bootstrap.min.css">
+        <link rel="stylesheet" href="styles/bootstrap.min.css">
         <link rel="stylesheet" href="./styles/ionicons.min.css">
         <link rel="stylesheet" href="./styles/pace.css">
         <link rel="stylesheet" href="./styles/custom.css">
 
         <!-- js -->
-        <script src="./lib/jquery-2.1.3.min.js"></script>
+        <script src="lib/jquery-2.1.3.min.js"></script>
         <script src="./lib/bootstrap.min.js"></script>
         <script src="./lib/pace.min.js"></script>
         <script src="./lib/modernizr.custom.js"></script>
         <script src="./scripts/js-cookie.js"></script>
-        <script src="./scripts/contests.js"></script>
+        <script src="./scripts/tasks.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 if (Cookies.get('AutoGraderUser') === undefined)
@@ -33,9 +33,16 @@
 
                     $("#logout").click(function () {
                         Cookies.remove('AutoGraderUser');
+                        Cookies.remove('AutograderUserId');
+                        Cookies.remove('Role');
                         window.location.href = './';
                     });
+                    if (Cookies.get('Role') === "Administrator") {
+                        $("#administration").show();
+                    }
                 }
+
+
             });
         </script>
 
@@ -60,13 +67,16 @@
 
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav navbar-right">
+                                    <li class="cl-effect-11" id="administration" style="display: none"><a href="administration.html" data-hover="Administration">Administration</a></li>
                                     <li class="cl-effect-11"><a href="index.html" data-hover="Home">Home</a></li>
                                     <li class="cl-effect-11"><a href="tasks.html" data-hover="Tasks">Tasks</a></li>
+
                                     <li class="cl-effect-11" id="signup" style="display: none"><a href="signup.html" data-hover="Signup">Signup</a></li>
                                     <li class="cl-effect-11" id="userprofile" style="display: none"><a href="me.html" >My Profile</a></li>
 
                                     <li class="cl-effect-11" id="login" style="display: none"><a href="login.html" data-hover="Login">Login</a></li>
                                     <li class="cl-effect-11" id="logout" style="display: none"><a href="#" data-hover="Logout">Logout</a></li>
+
 
                                 </ul>
                             </div><!-- /.navbar-collapse -->
@@ -82,40 +92,13 @@
                     <main class="col-md-12">
                         <article class="post post-1">
                             <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    Labyrinth 
+                                <h1 class="entry-title">
+
                                 </h1>
                             </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
-                                <div class="read-more cl-effect-14">
-                                    <!-- TODO: put valid link-->
-                                    <a href="./task.html" class="more-link">Browse<span class="meta-nav">→</span></a>
-                                </div>
+                            <div class="entry-content clearfix">
+
                             </div>
-
-                            <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    The weighted graph challenge
-                                </h1>
-                            </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
-                                <div class="read-more cl-effect-14">
-                                    <a href="AutoGrader/contest/2" class="more-link">Browse<span class="meta-nav">→</span></a>
-                                </div>
-                            </div>
-
-                            <header class="entry-header">
-                                <h1 class="entry-title" style="float: left; padding-top:31px; width:600px;">
-                                    The two towers challenge 
-                                </h1>
-                            </header>
-                            <div class="entry-content clearfix" style="float:left; width: 400px;">
-                                <div class="read-more cl-effect-14">
-                                    <a href="AutoGrader/contest/3" class="more-link">Browse<span class="meta-nav">→</span></a>
-                                </div>
-                            </div>
-
-
                         </article>
 
 
@@ -132,7 +115,6 @@
                 </div>
             </div>
         </footer>
-
         <script src="./scripts/script.js"></script>
 
     </body>

@@ -18,6 +18,7 @@
         <script src="./lib/pace.min.js"></script>
         <script src="./lib/modernizr.custom.js"></script>
         <script src="./scripts/js-cookie.js"></script>
+        <script src="./scripts/me.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
                 if (Cookies.get('AutoGraderUser') === undefined)
@@ -31,7 +32,7 @@
                     $("#logout").show();
 
                     $("#logout").click(function () {
-                        Cookies.remove('AutoGraderUser');
+                        Cookies.remove('AutoGraderUserId');
                         Cookies.remove('Role');
                         Cookies.remove('AutoGraderUserId');
                         window.location.href = './';
@@ -92,15 +93,11 @@
                         <article class="post post-1">
                             <header class="entry-header">
                                 <h1 class="entry-title">
-                                    What is AutoGrader?
+
                                 </h1>
                             </header>
                             <div class="entry-content clearfix">
-                                <p>A system where everybody can improve themselves by practicing their programming skills. The system provides a wide variety of problems, waiting to be solved. The project’s target group is anyone, who is interested in programming, data structures, algorithms, competitive programming and sharing knowledge /forum coming soon/.</p>
-                                <p>We strive for simplicity considering usability. The problems’ set will be extended often and we hope that You won’t get bored.</p>
-                                <div class="read-more cl-effect-14">
-                                    <a href="tasks.html" class="more-link">Browse the challenges <span class="meta-nav">→</span></a>
-                                </div>
+
                             </div>
                         </article>
 
