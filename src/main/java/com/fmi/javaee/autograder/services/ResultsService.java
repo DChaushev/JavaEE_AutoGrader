@@ -63,6 +63,18 @@ public class ResultsService {
         result.setScore(100);
         result.setSource(solution);
         result.setStatus("Not Implemented yet");
+        try {
+            em.getTransaction().begin();
+            em.persist(result);
+            em.flush();
+            em.getTransaction().commit();
+            System.out.println("Result " + result.getId() + " persisted!");
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            System.out.println("Error transaction for creating a result rolled back");
+            System.out.println(e);
+            
+        }
         
         return "We should probably return score???";
     }
