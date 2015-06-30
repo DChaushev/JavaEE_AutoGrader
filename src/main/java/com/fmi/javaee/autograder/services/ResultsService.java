@@ -5,6 +5,7 @@
  */
 package com.fmi.javaee.autograder.services;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,6 +20,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.core.MediaType;
 
 /**
  * REST Web Service
@@ -30,17 +32,23 @@ public class ResultsService {
     private final EntityManager em;
 
     public ResultsService() {
-                EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.javaeefmi_AutoGrader_war_1.0-SNAPSHOTPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("com.javaeefmi_AutoGrader_war_1.0-SNAPSHOTPU");
         em = emf.createEntityManager();
     }
 
     @GET
     @Path("{user_id}/{task_id}")
-    public String getUserResults(@PathParam("user_id") String userId,@PathParam("task_id") String taskId) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Results> getUserResults(@PathParam("user_id") String userId,@PathParam("task_id") String taskId) {
         
-        TypedQuery<User> query = em.createNamedQuery("Results.findByUserByTask", User.class);
+        TypedQuery<Results> query = em.createNamedQuery("Results.findByUserByTask", Results.class);
         
-        return "not yet implemented";
+        com.fmi.javaee.autograder.services.User user = em.find(User.class,Integer.parseInt(userId));
+        com.fmi.javaee.autograder.services.Tasks task = em.find(Tasks.class,Integer.parseInt(taskId));
+        query.setParameter("userId", user );
+        query.setParameter("taskId", task );
+        
+        return query.getResultList();
     }
 
     /**
