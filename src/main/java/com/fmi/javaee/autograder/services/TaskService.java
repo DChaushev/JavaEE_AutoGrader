@@ -160,6 +160,7 @@ public class TaskService {
             Test test = new Test();
             test.setInputRar(location + input);
             test.setOutputRar(location + output);
+            task.setTaskFile(location + fileName);
             test.setTaskId(task);
             em.persist(test);
             em.persist(task);
