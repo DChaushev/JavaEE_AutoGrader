@@ -98,12 +98,16 @@ public class TaskService {
 
         //TODO: get the test from the database!
         TypedQuery<Test> test_query = em.createNamedQuery("Test.findByTaskId", Test.class);
-        test_query.setParameter("task_id", task_id);
+        test_query.setParameter("task_id", task_query.getSingleResult());
+        
         Test test = test_query.getSingleResult();
+        //  Test test = em.find(Test.class, task_id);
 
         //This should work - if you get errors - there are no such files on the file system.
         //Change the path!
         Grader grader = new Grader();
+        System.out.println(test.getInputRar());
+        System.out.println(test.getOutputRar());
         String output = grader.test(src_code, test.getInputRar(), test.getOutputRar());
 
         newResult.setUserId(user_query.getSingleResult());
