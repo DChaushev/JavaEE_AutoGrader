@@ -28,7 +28,7 @@ $(document).ready(function () {
     $.get("AutoGrader/task/" + getUrlVar("id"), function (data) {
 
         $(".entry-title").text(data.task_name);
-        $("#task_file").html("<div> <a href='http://" + data.task_file + "'>" + data.task_name + "</a></div>");
+        $("#task_file").html("<div> <a href='AutoGrader/task/pdf/" + getUrlVar("id") + "'>" + data.task_name + "</a></div>");
 
         $.each(data.results, function (index, value) {
             $("#task-results").append("<tr>\n\
