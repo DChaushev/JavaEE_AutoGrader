@@ -167,7 +167,42 @@ public class TaskService {
         Tasks task = new Tasks();
         task.setTaskName(taskName);
         String separator = System.getProperty("file.separator");
+        //create dir problem set if it does not exist
         String location = System.getProperty("user.dir") + separator + "Problem Set" + separator + taskName + separator;
+        File problemSetDir = new File(System.getProperty("user.dir") + separator + "Problem Set");
+        File locationDir = new File(System.getProperty("user.dir") + separator + "Problem Set" + separator + taskName);
+        // if the directory does not exist, create it
+        if (!problemSetDir.exists()) {
+            System.out.println("creating directory: " + problemSetDir);
+            boolean result = false;
+
+            try {
+                problemSetDir.mkdir();
+                result = true;
+            } catch (SecurityException se) {
+                //handle it
+            }
+            if (result) {
+                System.out.println("DIR "+ problemSetDir+" created");
+            }
+        }
+
+        if (!locationDir.exists()) {
+            System.out.println("creating directory: " + locationDir);
+            boolean result = false;
+
+            try {
+                locationDir.mkdir();
+                result = true;
+            } catch (SecurityException se) {
+                //handle it
+            }
+            if (result) {
+                System.out.println("DIR "+ locationDir+" created");
+            }
+        }
+
+        
         try {
             em.getTransaction().begin();
             Test test = new Test();
@@ -213,8 +248,6 @@ public class TaskService {
             ResponseBuilder response = Response.serverError();
             return response.build();
         }
-        
-
 
     }
 
